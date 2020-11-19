@@ -1,0 +1,166 @@
+/* your styles go here */
+.checkbox.multi-select label{
+    text-transform: capitalize;
+}
+.react-datetime-picker{
+    display: block !important;
+}
+
+.react-datetime-picker__wrapper{
+    border: 1px solid #ced4da !important;
+    padding: .25rem .72rem;
+}
+
+.react-datetime-picker__inputGroup input, select, svg{
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.product .image{
+    
+}
+
+.event-date{
+    margin-left:4px;
+}
+
+.event-host{
+    margin-left:4px;
+}
+
+.event-heading{
+    margin-bottom:25px
+}
+.footer-host-detail{
+    margin-left:6px;
+}
+
+.newbar{
+    padding: 25px 0;
+}
+
+.maintain-space{
+    margin-top:20px;
+}
+
+.product.customize a{
+    color: #37517e;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.product.customize a:hover,.product.customize a:focus{
+    color: #348e7b;
+    text-decoration: underline;
+}
+
+.product .author-category{
+    font-size: 0.75rem;
+    color: #999;
+    text-transform: capitalize;
+    letter-spacing: 0.1em;
+    margin-bottom: 0;
+}
+
+.product .text .intro{
+    text-align: left;
+    margin-bottom: 20px;
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+h5.producth5{
+    margin-bottom: 0;
+}
+
+.customfilter panel-body label{
+    text-transform: capitalize;
+}
+.product.listview{
+    text-align: left;
+}
+.product .text.listitems{
+    padding: 28px;
+    border:0;
+}
+.customsize{
+    font-size: 0.9rem;
+    font-weight: 400 !important;
+    color: #777;
+    opacity: 0.9;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.product .text.listitems p{
+    padding-top:6px
+}
+.product .text.listitems p.price{
+    padding-top:6px
+}
+
+.product.customize .text.listitems a{
+    margin-top: 0;
+}
+
+.product .text.listitems p.lead{
+    margin-bottom:0 !important;
+}
+
+.avatar{
+    color: #5bc0de;
+    font-weight:400;
+}
+
+.avatar:after { content:" "; word-spacing:1em; }
+
+.rightpad{
+    padding-right:5px;
+}
+
+.social-buttons{
+    position: relative;
+    display: inline-block;
+    padding: .8em;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background-color: transparent;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1.15384615;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.btn.show-more{
+    border: 2px solid #47b2e4 !important;
+    color: #47b2e4;
+}
+
+.btn.show-more a{
+    color: #47b2e4;
+}
+
+.btn.show-more a:hover{
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn.show-more:hover{
+    background: #47b2e4;
+    color: #fff;
+}
+
