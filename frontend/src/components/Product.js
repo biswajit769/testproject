@@ -16,23 +16,29 @@ export default function Product(props) {
               className="rounded img-fluid"
             />
           </a>
+          <span className="indiatalks-homepage-event-item-price">
+            <div className="indiatalks-homepage-htm-price-scope"><span><span>{formatPrice(product.price)}</span></span></div>
+          </span>
         </div>
 
         <div className="text">
-          <h5 className="h5 producth5">
+          <h5 className="h5 producth5 prod-title">
             <a href={`/product/${product._id}`}>
-              {truncateText(product.name, 50)}
+              {product.name}
             </a>
           </h5>
+          <p className="intro">{formatDate(product.hdate)}</p>
           <p className="author-category">
             By <a href="#">{product.hostname}</a>
           </p>
-          <p className="intro">{formatDate(product.hdate)}</p>
-          <p className="price">{formatPrice(product.price)}</p>
+          <div className="button-container">
+          <span class="badge badge-primary product-card">Event Series</span>
+          <span class="badge badge-success drop-in-container"><i class="fa fa-check" aria-hidden="true"></i>Drop-in</span>
+          </div>
         </div>
         {isNew && (
           <div className="ribbon-holder">
-            <div className="ribbon new">NEW</div>
+            <div className="ribbon new">new</div>
           </div>
         )}
       </div>

@@ -10,19 +10,25 @@ export default function ProductWithFilter(props) {
       <div className="container">
         <div className="row product customize listview">
           <div className="col-md-5 text-center">
-            <a href={`/product/${product._id}`}>
+          <div className="image">
+          <a href={`/product/${product._id}`}>
             <img
               src={product.image}
               alt={product.name}
               className="rounded img-fluid"
             />
           </a>
+          <span className="indiatalks-homepage-event-item-price listview">
+            <div className="indiatalks-homepage-htm-price-scope listview"><span><span>{formatPrice(product.price)}</span></span></div>
+          </span>
+          </div>
+            
           </div>
           <div className="col-md-7">
           <div className="text listitems">
           <h5 className="h5 producth5">
             <a href={`/product/${product._id}`}>
-              {truncateText(product.name, 50)}
+              {product.name}
             </a>
           </h5>
           <p className="intro">{formatDate(product.hdate)}</p>
@@ -30,7 +36,6 @@ export default function ProductWithFilter(props) {
             By <a href="#">{product.hostname}</a>
           </p>
           <p className="lead mb-small customsize">{product.shortdescription}</p>
-          <p className="price">{formatPrice(product.price)}</p>
         </div>
           </div>
         </div>
