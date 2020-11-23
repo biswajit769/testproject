@@ -1,8 +1,8 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 export default function Header(props) {
   return (
-    <footer className="main-footer">
+    <footer className="main-footer newbar bg-gray mb-0">
         <div className="container">
           <div className="row">
             <div className="col-lg-3">
@@ -86,9 +86,7 @@ export default function Header(props) {
                 411028 <br />
                 India <br />
               </p>
-              <a href="contact.html" className="btn btn-template-main">
-                Go to contact page
-              </a>
+              <Link className="btn btn-template-main" to="/contact">Go to contact page</Link>
               <hr className="d-block d-lg-none" />
             </div>
             <div className="col-lg-3">

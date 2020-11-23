@@ -33,7 +33,8 @@ export const listProducts = (
   category = "",
   searchKeyword = "",
   sortOrder = "",
-  parentcategory = ""
+  parentcategory = "",
+  user = ""
 ) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -45,7 +46,9 @@ export const listProducts = (
         "&sortOrder=" +
         sortOrder +
         "&parentcategory=" +
-        parentcategory
+        parentcategory +
+        "&user=" +
+        user
     );
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {

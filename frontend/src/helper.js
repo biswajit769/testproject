@@ -62,8 +62,12 @@ export function formatDate(datestr) {
 }
 
 export function getNameInitial(name) {
-  let initials = name.match(/\b\w/g) || [];
-  initials = ((initials.shift() || "") + (initials.pop() || "")).toUpperCase();
+  let initials = '';
+  if(name.indexOf(' ') >= 0){
+    initials = name.split(' ').slice(0, -1).join(' ');
+  }else{
+    initials = name;
+  }
   return initials;
 }
 
@@ -113,6 +117,25 @@ export const eventCategories = [
   },
 ];
 
+let monthArry = {
+  "0":"Jan",
+  "1":"Feb",
+  "2":"March",
+  "3":"April",
+  "4":"May",
+  "5":"June",
+  "6":"July",
+  "7":"August",
+  "8":"Sept",
+  "9":"October",
+  "10":"Nov",
+  "11":"Dec"
+}
+
+export function getMonthInit(monthint){
+return monthArry[monthint];
+}
+
 export default {
   formatPrice,
   parentCategories,
@@ -121,4 +144,6 @@ export default {
   productAvailabilityStatus,
   formatDate,
   arrangeproducts,
+  getNameInitial,
+  getMonthInit
 };

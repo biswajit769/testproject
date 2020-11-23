@@ -35,10 +35,18 @@ export default function PaymentMethodScreen(props) {
   cart.totalPrice = cart.itemsPrice + cart.taxPrice;
 
   const responseHandler = (response) => {
+    props.history.push("/orderplaced");
     //success scenario.
-    //if(response.razorpay_payment_id && response.razorpay_order_id && response.razorpay_signature){
-    if(response.razorpay_payment_id){
+    if(response.razorpay_payment_id && response.razorpay_order_id && response.razorpay_signature){
+      verifyOrderStatus(userInfo.email,response,30)
+      .then(isValidOrder => {
+        if(isValidOrder.status === 'Success'){
+          dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
+          props.history.push("/orderplaced");
+        }else{
 
+        }
+      })
     }else if(response.error !== undefined){
     //error scenario
     }
@@ -49,36 +57,35 @@ export default function PaymentMethodScreen(props) {
     'Content-Type': 'application/json'
 });
 
-  let options = {
-    key: "rzp_test_xLfLvCOupjVqWs",
-    amount: 2000, // Example: 2000 paise = INR 20
-    name: "IndiaTalks Pvt. Ltd.",
-    description: "Event Ticket",
-    image: "img/logo.png", // COMPANY LOGO
-    handler: responseHandler,
-    prefill: {
-      name: "ABC", // pass customer name
-      email: "info@rkprd.com", // customer email
-      contact: "+919123456780", //customer phone no.
-    },
-    notes: {
-      address: "address", //customer address
-    },
-    theme: {
-      color: "#4fbfa8", // screen color
-    },
-  };
-
-  const addScriptDynamic = () => {
+  const addScriptDynamic = (billamount,orderid,billdescription) => {
+    console.log("orderid====",orderid);
     var head = document.getElementsByTagName("head")[0];
     var script = document.createElement("script");
     script.type = "text/javascript";
     script.onload = function () {
-      callFunctionFromScript();
+      callFunctionFromScript(billamount,orderid,billdescription);
     };
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     head.appendChild(script);
   };
+
+  async function verifyOrderStatus(emailId, orderitem, days) {
+    let _data = {
+      user: emailId,
+      days: parseInt(days),
+      razorpay_payment_id: orderitem.razorpay_payment_id,
+      razorpay_order_id: orderitem.razorpay_order_id,
+      razorpay_signature: orderitem.razorpay_signature,
+    };
+    const orderstatus = await fetch(`${API_HOST}/verify`, {
+      method: "POST",
+      body: JSON.stringify(_data),
+      headers: header,
+      mode: "cors",
+    }); // Execution stops here until fetch promise is fulfilled.
+    const cnforderstatus = await orderstatus.json();
+    return cnforderstatus; // equivalent of resolving the getGithubUser promise with user value.
+  }
 
   async function getOrderDetail(amount,emailId){
     let _data = {
@@ -95,7 +102,27 @@ export default function PaymentMethodScreen(props) {
     return orderDetail; // equivalent of resolving the getGithubUser promise with user value.*/
 }
 
-  function callFunctionFromScript() {
+  function callFunctionFromScript(billamount,orderid,billdescription) {
+    console.log("bill",billamount,"orderItem",orderid,"billdescription",billdescription);
+    let options = {
+      key: SECRET_KEY,
+      amount: billamount*100, // Example: 2000 paise = INR 20
+      name: MERCHANT_NAME,
+      description: billdescription,
+      image: "img/logo.png", // COMPANY LOGO
+      handler: responseHandler,
+      prefill: {
+        name: "ABC", // pass customer name
+        email: "info@rkprd.com", // customer email
+        contact: "+919123456780", //customer phone no.
+      },
+      notes: {
+        address: "address", //customer address
+      },
+      theme: {
+        color: "#4fbfa8", // screen color
+      },
+    };
     let propay = new window.Razorpay(options);
     propay.open();
     propay.on("payment.failed", responseHandler);
@@ -103,12 +130,14 @@ export default function PaymentMethodScreen(props) {
   //cart.totalPrice = cart.itemsPrice;
   const submitHandler = (e) => {
     e.preventDefault();
-    addScriptDynamic();
+    //addScriptDynamic();
     const billamount = cart.totalPrice;
     const billdescription = 'test description';
+    dispatch(createOrder({ ...cart, orderItems: cart.cartItems })); // remove this line
     getOrderDetail(billamount,userInfo.email)
     .then((orderItem)=>{
       console.log("orderItem",orderItem);
+      addScriptDynamic(billamount,orderItem.id,billdescription);
     })
     //let propay = new Razorpay(options);
     //propay.open();

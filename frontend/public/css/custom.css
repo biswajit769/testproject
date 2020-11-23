@@ -230,3 +230,48 @@ h5.producth5{
     display: inline-block;
 }
 
+#navbar .navbar-nav > li > a.user-login-profile:hover,
+#navbar .navbar-nav > li > a.user-login-profile:focus{
+    
+}
+.kep-login-facebook{
+    font-weight: 500!important;
+    text-transform: capitalize!important;
+    line-height: 2px;
+}
+
+.ticketleft{
+    text-align: center;
+    border-right: 2px dashed #dadde6;
+}
+
+.ticketlist{
+    border: 1px solid #e9ecef;
+    border-radius: .75rem;
+    background: #e9ecef !important;
+}
+
+.ticketleft::before,
+.ticketleft::after
+{
+    content: "";
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.ticketleft:after {
+    top: auto;
+    bottom: -15px;
+}
+
+.imageholder{
+    padding:30px;
+}
+

@@ -13,6 +13,7 @@ export default function Header(props) {
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
+  console.log("userinfo", userInfo);
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
@@ -52,15 +53,10 @@ export default function Header(props) {
                 </ul>
                 {!userInfo ? (
                   <>
-                    <div className="login">
-                      
-                    </div>
-                    
+                    <div className="login"></div>
                   </>
                 ) : (
-                  <div className="login">
-                    
-                  </div>
+                  <div className="login"></div>
                 )}
               </div>
             </div>
@@ -162,12 +158,12 @@ export default function Header(props) {
             <div id="navigation" className="navbar-collapse collapse">
               {!userInfo && (
                 <ul className="nav navbar-nav ml-auto">
-                <li className="nav-item dropdown">
-                  <Link to="/signin">Sign In</Link>
-                </li>
-                <li className="nav-item dropdown menu-large">
-                  <Link to="/register">Sign up</Link>
-                </li>
+                  <li className="nav-item dropdown">
+                    <Link to="/signin">Sign In</Link>
+                  </li>
+                  <li className="nav-item dropdown menu-large">
+                    <Link to="/register">Sign up</Link>
+                  </li>
                 </ul>
               )}
               {userInfo && !userInfo.isAdmin && (
@@ -183,14 +179,45 @@ export default function Header(props) {
                   <li className="nav-item dropdown menu-large">
                     <Link to="/orderhistory">Tickets</Link>
                   </li>
-                  <li class="nav-item dropdown"><a href="javascript: void(0)" data-toggle="dropdown" class=""><span class="badge badge-warning">{userInfo.name}</span></a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item dropdown">
-                    <Link to="#signout" onClick={signoutHandler}>
+
+                  <li class="nav-item dropdown">
+                    <a
+                      href="javascript: void(0)"
+                      data-toggle="dropdown"
+                      class="dropdown-toggle"
+                    >
+                      <span class="badge badge-danger">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>{" "}
+                        {userInfo.name}
+                      </span>{" "}
+                      <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      {userInfo && userInfo.isHost && (
+                        <>
+                          <li class="dropdown-item">
+                            <Link to="/eventslist" className="nav-link">
+                              Host An Event
+                            </Link>
+                          </li>
+                          <li class="dropdown-item">
+                            <Link to="/eventslist" className="nav-link">
+                              Orders
+                            </Link>
+                          </li>
+                        </>
+                      )}
+                      <li class="dropdown-item">
+                        <Link
+                          to="#signout"
+                          className="nav-link"
+                          onClick={signoutHandler}
+                        >
                           Sign Out
-                        </Link></li>
-                  </ul>
-                </li>
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               )}
               {userInfo && userInfo.isAdmin && (
@@ -207,14 +234,30 @@ export default function Header(props) {
                   <li className="nav-item dropdown menu-large">
                     <Link to="/userlist">Users</Link>
                   </li>
-                  <li class="nav-item dropdown"><a href="javascript: void(0)" data-toggle="dropdown" class=""><span class="badge badge-warning">{userInfo.name}</span></a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item dropdown">
-                    <Link to="#signout" onClick={signoutHandler}>
+                  <li class="nav-item dropdown">
+                    <a
+                      href="javascript: void(0)"
+                      data-toggle="dropdown"
+                      class="dropdown-toggle"
+                    >
+                      <span class="badge badge-warning">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>{" "}
+                        {userInfo.name}
+                      </span>{" "}
+                      <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown-item">
+                        <Link
+                          to="#signout"
+                          className="nav-link"
+                          onClick={signoutHandler}
+                        >
                           Sign Out
-                        </Link></li>
-                  </ul>
-                </li>
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               )}
             </div>

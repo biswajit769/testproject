@@ -32,8 +32,8 @@ export default function Product(props) {
             By <a href="#">{product.hostname}</a>
           </p>
           <div className="button-container">
-          <span class="badge badge-primary product-card">Event Series</span>
-          <span class="badge badge-success drop-in-container"><i class="fa fa-check" aria-hidden="true"></i>Drop-in</span>
+          <span className="badge badge-primary product-card">Event Series</span>
+          <span className="badge badge-success drop-in-container"><i className="fa fa-check" aria-hidden="true"></i>Drop-in</span>
           </div>
         </div>
         {isNew && (

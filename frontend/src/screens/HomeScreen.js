@@ -106,7 +106,7 @@ export default function HomeScreen(props) {
         </div>
       </div>
       </section>
-      <section className="newbar bg-gray mb-0">
+      <section className="newbar background-white no-mb">
       <div className="container">
         <div className="heading text-center">
           <h2>Top User Picks</h2>

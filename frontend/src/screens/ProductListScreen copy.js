@@ -17,9 +17,6 @@ export default function ProductListScreen(props) {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-
   const productCreate = useSelector((state) => state.productCreate);
   const {
     loading: loadingCreate,
@@ -44,7 +41,7 @@ export default function ProductListScreen(props) {
     if (successDelete) {
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
-    dispatch(listProducts('','','','',userInfo._id));
+    dispatch(listProducts());
   }, [createdProduct, dispatch, props.history, successCreate, successDelete]);
 
   const deleteHandler = (product) => {
@@ -113,7 +110,7 @@ export default function ProductListScreen(props) {
                             <td>{formatPrice(product.price)}</td>
                             <td>{product.category}</td>
                             <td>New</td>
-                            <td>{product.hostname}</td>
+                            <td>Biswajit Routray</td>
                             <td>{product.countInStock}</td>
                             <td>11/12/2020</td>
                             

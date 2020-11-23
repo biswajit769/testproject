@@ -12,7 +12,7 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_RESET,
-  USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_PROFILE_SUCCESS
 } from '../constants/userConstants';
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -42,6 +42,7 @@ export const userSigninReducer = (state = {}, action) => {
       return state;
   }
 };
+
 export const userDetailsReducer = (state = { loading: true }, action) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:

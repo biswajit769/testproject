@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { signin } from "../actions/userActions";
+import { signin, socialMediaSignin } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import SocialButton from "../components/SocialButton";
+import GoogleLogin from "react-google-login";
+import FacebookLogin from 'react-facebook-login';
 
 export default function SigninScreen(props) {
   const [email, setEmail] = useState("");
@@ -21,23 +22,45 @@ export default function SigninScreen(props) {
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
+  
 
   const dispatch = useDispatch();
-  const handleSocialLogin = (user) => {
-    console.log(user);
+  
+  const responseGoogle = (res) => {
+    console.log("google reponse", res);
+    if(res.error){
+      const googleerror = res.error;
+    }
+    const googleresponse = {
+      name: res.profileObj.name,
+      email: res.profileObj.email,
+      token: res.googleId,
+      image: res.profileObj.imageUrl,
+      providerid: "google",
+      accesstoken:res.accessToken
+    };
+    dispatch(signin(res.profileObj.email,res.googleId,googleresponse));
   };
 
-  const handleSocialLoginFailure = (err) => {
-    console.error(err);
-  };
+  const responseFacebook = (res) =>{
+    const facebookresponse = {
+      name: res.name,
+      email: res.email,
+      token: res.userID,
+      image: res.picture.data.url,
+      providerid: "facebook",
+      accesstoken:res.accessToken
+    };
+    dispatch(signin(res.email,res.userID,facebookresponse));
+  }
 
-  const onLogoutSuccess = () => {};
-
-  const onLogoutFailure = (err) => {};
+  const componentClicked = (res) =>{
+    console.log("facebook clicked",res);
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(signin(email, password));
+    dispatch(signin(email, password,{}));
   };
   useEffect(() => {
     if (userInfo) {
@@ -99,31 +122,21 @@ export default function SigninScreen(props) {
                 <div className="text-center">
                   <h5 className="text-uppercase">Or</h5>
                   <div className="social-buttons">
-                    <SocialButton
-                      provider="google"
-                      appId="536856120798-rbn12413eseaplk39uj9tgc3akujpo0s.apps.googleusercontent.com"
-                      onLoginSuccess={handleSocialLogin}
-                      onLoginFailure={handleSocialLoginFailure}
-                      onLogoutSuccess={onLogoutSuccess}
-                      onLogoutFailure={onLogoutFailure}
-                      className="btn btn-google "
-                    >
-                      <i className="fa fa-google rightpad" />
-                      Login with Google
-                    </SocialButton>
+                    <GoogleLogin
+                      clientId="536856120798-ukvkr4sc1m69psq26mi14q0nhmb3vq35.apps.googleusercontent.com"
+                      buttonText="Login with Google"
+                      onSuccess={responseGoogle}
+                      onFailure={responseGoogle}
+                    ></GoogleLogin>
                   </div>
                   <div className="social-buttons">
-                    <SocialButton
-                      provider="facebook"
+                    <FacebookLogin
                       appId="4985844028100127"
-                      onLoginSuccess={handleSocialLogin}
-                      onLoginFailure={handleSocialLoginFailure}
-                      onLogoutSuccess={onLogoutSuccess}
-                      className="btn btn-facebook"
-                    >
-                      <i className="fa fa-facebook rightpad" />
-                      Login with Facebook
-                    </SocialButton>
+                      autoLoad={false}
+                      fields="name,email,picture"
+                      onClick={componentClicked}
+                      callback={responseFacebook}
+                    />
                   </div>
                 </div>
               </div>

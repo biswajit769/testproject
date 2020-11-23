@@ -37,10 +37,10 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const signin = (email, password) => async (dispatch) => {
-  dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
+export const signin = (email, password, socialresponse) => async (dispatch) => {
+  dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password, socialresponse} });
   try {
-    const { data } = await Axios.post('/api/users/signin', { email, password });
+    const { data } = await Axios.post('/api/users/signin', { email, password, socialresponse });
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {

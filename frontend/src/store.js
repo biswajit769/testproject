@@ -22,6 +22,7 @@ import {
   userRegisterReducer,
   userSigninReducer,
   userUpdateProfileReducer,
+  userSocialMediaSigninReducer,
 } from './reducers/userReducers';
 
 const initialState = {
