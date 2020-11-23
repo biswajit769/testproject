@@ -2,6 +2,7 @@ import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import data from "../data.js";
 import Product from "../models/productModel.js";
+import User from '../models/userModel.js';
 import { isAdmin, isAuth } from "../utils.js";
 
 const productRouter = express.Router();
@@ -12,6 +13,12 @@ productRouter.get(
     //const products = await Product.find({});
     //res.send(products);
     const category = req.query.category ? { pcategoryids: [req.query.category] } : {};
+    let selfhost = {}
+    if(req.query.user){
+      const user = await User.findOne({ _id: req.query.user });
+      selfhost = (user && user.isAdmin)?{}:(user && user.isHost)?{ hostuserid: req.query.user }:{};
+    }
+    //const eventuser = { hostuserid : req.user._id };
     const parentcategory = req.query.parentcategory
       ? { pcategoryids: { $in: [req.query.parentcategory] } }
       : {};
@@ -33,6 +40,7 @@ productRouter.get(
       ...category,
       ...parentcategory,
       ...searchKeyword,
+      ...selfhost
     }).sort(sortOrder);
 
     res.send(products);
@@ -65,7 +73,7 @@ productRouter.post(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
-    console.log("request has reached1234");
+    console.log("request has reached1235", req.user);
     const product = new Product({
       name: "sample event name " + Date.now(),
       image: "/images/p1.jpg",
@@ -94,8 +102,8 @@ productRouter.post(
       ],
       ecategoryids: [],
       pcategoryids: [],
-      hostname: "biswajit",
-      hostuserid: "123456789",
+      hostname: req.user.name,
+      hostuserid: req.user._id,
       pageaction: "add",
       ticketCancellationPolicy: "Refunds up to 1 hour before the event starts",
     });
@@ -108,11 +116,10 @@ productRouter.put(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
-    console.log("request has reached123", req.body);
+    console.log("request has reached123", req.user);
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if (product) {
-      console.log("request has reached123890");
       product.name = req.body.name;
       product.price = req.body.price;
       product.image = req.body.image;
