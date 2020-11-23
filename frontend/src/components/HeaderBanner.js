@@ -18,7 +18,7 @@ export default function HeaderBanner(props) {
             <div className="row">
               <div className="col-md-5 text-right">
                 <p>
-                  <img src="img/logo.png" alt className="ml-auto" />
+                  <img src="img/logo.png" alt="banner" className="ml-auto" />
                 </p>
                 <h1>Unlocking a Compelling Online Event Experience</h1>
                 <p>
@@ -28,7 +28,7 @@ export default function HeaderBanner(props) {
               <div className="col-md-7">
                 <img
                   src="img/holi-7.jpg"
-                  alt
+                  alt="banner"
                   className="img-fluid"
                 />
               </div>
@@ -37,7 +37,7 @@ export default function HeaderBanner(props) {
           <div className="item">
             <div className="row">
               <div className="col-md-7 text-center">
-                <img src="img/hometemplate-1.jpg" alt className="img-fluid" />
+                <img src="img/hometemplate-1.jpg" alt="banner" className="img-fluid" />
               </div>
               <div className="col-md-5">
                 <h2>Key beneﬁts of online learning</h2>

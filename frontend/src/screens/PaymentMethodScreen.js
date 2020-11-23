@@ -14,6 +14,7 @@ const API_HOST = 'https://subscrip.rkprd.com/api/v1';
 
 export default function PaymentMethodScreen(props) {
   const cart = useSelector((state) => state.cart);
+  console.log("cart detail=====12",cart);
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
   const { shippingAddress } = cart;
@@ -27,15 +28,19 @@ export default function PaymentMethodScreen(props) {
   const [paymentMethod, setPaymentMethod] = useState("Razorpay");
   const dispatch = useDispatch();
   const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
+  if(cart && cart.cartItems.length > 0){
+    cart.hostId = cart.cartItems[0].hostuserid;
+  }
   cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
   );
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(0);
   cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.taxPrice;
-
+  console.log("cart detail=====123",cart);
   const responseHandler = (response) => {
-    props.history.push("/orderplaced");
+    //props.history.push("/orderplaced");
+    console.log("If I am called",response);
     //success scenario.
     if(response.razorpay_payment_id && response.razorpay_order_id && response.razorpay_signature){
       verifyOrderStatus(userInfo.email,response,30)
@@ -109,6 +114,7 @@ export default function PaymentMethodScreen(props) {
       amount: billamount*100, // Example: 2000 paise = INR 20
       name: MERCHANT_NAME,
       description: billdescription,
+      order_id: orderid,
       image: "img/logo.png", // COMPANY LOGO
       handler: responseHandler,
       prefill: {
@@ -128,7 +134,7 @@ export default function PaymentMethodScreen(props) {
     propay.on("payment.failed", responseHandler);
   }
   //cart.totalPrice = cart.itemsPrice;
-  const submitHandler = (e) => {
+  const submitHandler2 = (e) => {
     e.preventDefault();
     //addScriptDynamic();
     const billamount = cart.totalPrice;
@@ -147,7 +153,7 @@ export default function PaymentMethodScreen(props) {
     //dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   };
 
-  const submitHandler1 = (e) => {
+  const submitHandler = (e) => {
     dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   }
   const listingredirect = (e) => {

@@ -180,34 +180,34 @@ export default function Header(props) {
                     <Link to="/orderhistory">Tickets</Link>
                   </li>
 
-                  <li class="nav-item dropdown">
+                  <li className="nav-item dropdown">
                     <a
-                      href="javascript: void(0)"
+                      href="#"
                       data-toggle="dropdown"
-                      class="dropdown-toggle"
+                      className="dropdown-toggle"
                     >
-                      <span class="badge badge-danger">
-                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>{" "}
+                      <span className="badge badge-danger">
+                        <i className="fa fa-user-circle-o" aria-hidden="true"></i>{" "}
                         {userInfo.name}
                       </span>{" "}
-                      <b class="caret"></b>
+                      <b className="caret"></b>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul className="dropdown-menu">
                       {userInfo && userInfo.isHost && (
                         <>
-                          <li class="dropdown-item">
+                          <li className="dropdown-item">
                             <Link to="/eventslist" className="nav-link">
                               Host An Event
                             </Link>
                           </li>
-                          <li class="dropdown-item">
-                            <Link to="/eventslist" className="nav-link">
+                          <li className="dropdown-item">
+                            <Link to="/hostorderhistory" className="nav-link">
                               Orders
                             </Link>
                           </li>
                         </>
                       )}
-                      <li class="dropdown-item">
+                      <li className="dropdown-item">
                         <Link
                           to="#signout"
                           className="nav-link"
@@ -234,20 +234,20 @@ export default function Header(props) {
                   <li className="nav-item dropdown menu-large">
                     <Link to="/userlist">Users</Link>
                   </li>
-                  <li class="nav-item dropdown">
+                  <li className="nav-item dropdown">
                     <a
                       href="javascript: void(0)"
                       data-toggle="dropdown"
-                      class="dropdown-toggle"
+                      className="dropdown-toggle"
                     >
-                      <span class="badge badge-warning">
-                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>{" "}
+                      <span className="badge badge-warning">
+                        <i className="fa fa-user-circle-o" aria-hidden="true"></i>{" "}
                         {userInfo.name}
                       </span>{" "}
-                      <b class="caret"></b>
+                      <b className="caret"></b>
                     </a>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown-item">
+                    <ul className="dropdown-menu">
+                      <li className="dropdown-item">
                         <Link
                           to="#signout"
                           className="nav-link"

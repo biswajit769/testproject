@@ -2,6 +2,7 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
 import { isAdmin, isAuth } from '../utils.js';
+import Product from "../models/productModel.js";
 
 const orderRouter = express.Router();
 orderRouter.get(
@@ -22,6 +23,17 @@ orderRouter.get(
   })
 );
 
+orderRouter.get(
+  '/host',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find({ hostId: req.user._id });
+    res.send(orders);
+  })
+);
+
+
+
 orderRouter.post(
   '/',
   isAuth,
@@ -36,6 +48,7 @@ orderRouter.post(
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
         user: req.user._id,
+        hostId:req.body.hostId
       });
       console.log("my order====",order);
       const createdOrder = await order.save();

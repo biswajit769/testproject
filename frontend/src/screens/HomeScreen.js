@@ -73,7 +73,7 @@ export default function HomeScreen(props) {
       )}
         {/* Carousel End*/}
         <div className="text-center maintain-space">
-          <a href="javascript:void(0)" className="btn btn-template-outlined show-more"><Link to="/productfilter/upcoming">See more</Link></a>
+          <Link className="btn btn-template-outlined show-more" to="/productfilter/upcoming">See more</Link>
         </div>
       </div>
       </section>
@@ -102,7 +102,7 @@ export default function HomeScreen(props) {
       )}
         {/* Carousel End*/}
         <div className="text-center maintain-space">
-          <a href="javascript:void(0)" className="btn btn-template-outlined show-more"><Link to="/productfilter/new">See more</Link></a>
+          <Link className="btn btn-template-outlined show-more" to="/productfilter/new">See more</Link>
         </div>
       </div>
       </section>
@@ -131,7 +131,7 @@ export default function HomeScreen(props) {
       )}
         {/* Carousel End*/}
         <div className="text-center maintain-space">
-          <a href="javascript:void(0)" className="btn btn-template-outlined show-more"><Link to="/productfilter/top user picks">See more</Link></a>
+          <Link className="btn btn-template-outlined show-more" to="/productfilter/top user picks">See more</Link>
         </div>
       </div>
       </section>

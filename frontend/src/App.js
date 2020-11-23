@@ -8,6 +8,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import CartScreen from "./screens/CartScreen";
 import HomeScreen from "./screens/HomeScreen";
 import OrderHistoryScreen from "./screens/OrderHistoryScreen";
+import OrderHistoryHostScreen from "./screens/OrderHistoryHostScreen";
 import OrderScreen from "./screens/OrderScreen";
 import OrderFinalScreen from "./screens/OrderFinalScreen";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
@@ -55,6 +56,7 @@ function App() {
         <Route path="/orderplaced" component={OrderFinalScreen}></Route>
         <Route path="/productfilter/:sectiontype" component={ProductFilter}></Route>
         <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
+        <Route path="/hostorderhistory" component={OrderHistoryHostScreen}></Route>
         <Route path="/contact" component={Contactus}></Route>
         <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
         <AdminRoute
