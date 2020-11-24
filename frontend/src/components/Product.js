@@ -5,6 +5,9 @@ import { truncateText, formatPrice, formatDate } from "../helper";
 
 export default function Product(props) {
   const { product, isNew } = props;
+  const date1 = new Date().setHours(0,0,0,0);
+  const date2 = new Date(product.hdate).setHours(0,0,0,0);
+  const productprice = (product.avalabilityCounter && product.avalabilityCounter>0)?(date1 > date2)?'Sold Out':formatPrice(product.price):'Sold Out';
   return (
     <div>
       <div className="product customize">
@@ -17,7 +20,7 @@ export default function Product(props) {
             />
           </a>
           <span className="indiatalks-homepage-event-item-price">
-            <div className="indiatalks-homepage-htm-price-scope"><span><span>{formatPrice(product.price)}</span></span></div>
+            <div className="indiatalks-homepage-htm-price-scope"><span><span>{productprice}</span></span></div>
           </span>
         </div>
 

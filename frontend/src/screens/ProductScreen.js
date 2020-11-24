@@ -20,6 +20,16 @@ export default function ProductScreen(props) {
   const [qty, setQty] = useState(1);
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+  let submitbuttonLabel = "";
+  let registerButtonDisable = true;
+  if(product){
+     submitbuttonLabel = (product.avalabilityCounter && product.avalabilityCounter>0)?'Register':'Tickets Have Sold Out';
+     registerButtonDisable = (product.avalabilityCounter && product.avalabilityCounter>0)?false:true;
+     const date1 = new Date().setHours(0,0,0,0);
+     const date2 = new Date(product.hdate).setHours(0,0,0,0)
+     submitbuttonLabel = (date1 > date2) ?'Ticket Sale Has Ended':submitbuttonLabel;
+     registerButtonDisable = (date1 > date2)?true:registerButtonDisable;
+  }
   useEffect(() => {
     dispatch(detailsProduct(productId));
   }, [dispatch, productId]);
@@ -90,7 +100,7 @@ export default function ProductScreen(props) {
                     <div className="col-sm-6">
                       <div className="box bs-select">
                         <form>
-                          {product.countInStock > 0 && (
+                          {product.avalabilityCounter > 0 && !registerButtonDisable && (
                             <div className="sizes">
                               <h5>Choose Quantity</h5>
                               <select
@@ -98,7 +108,7 @@ export default function ProductScreen(props) {
                                 value={qty}
                                 onChange={(e) => setQty(e.target.value)}
                               >
-                                {[...Array(product.countInStock).keys()].map(
+                                {[...Array(product.avalabilityCounter).keys()].map(
                                   (x) => (
                                     <option key={x + 1} value={x + 1}>
                                       {x + 1}
@@ -114,8 +124,9 @@ export default function ProductScreen(props) {
                               type="submit"
                               className="btn btn-template-outlined"
                               onClick={addToCartHandler}
+                              disabled={registerButtonDisable}
                             >
-                              <i className="fa fa-ticket" /> Register
+                              <i className="fa fa-ticket" /> {submitbuttonLabel}
                             </button>
                             <button
                               type="submit"

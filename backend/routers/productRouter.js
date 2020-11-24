@@ -80,6 +80,7 @@ productRouter.post(
       category: "sample category",
       brand: "sample brand",
       countInStock: 10,
+      avalabilityCounter : 10,
       rating: 0,
       numReviews: 0,
       description: "sample description",
@@ -124,6 +125,7 @@ productRouter.put(
       product.category = req.body.category;
       product.brand = req.body.brand;
       product.countInStock = req.body.countInStock;
+      product.avalabilityCounter = req.body.avalabilityCounter;
       product.description = req.body.description;
       product.shortdescription = req.body.shortdescription;
       product.hdate = req.body.hdate;
@@ -138,7 +140,7 @@ productRouter.put(
       const updatedProduct = await product.save();
       res.send({ message: "Product Updated", product: updatedProduct });
     } else {
-      res.status(404).send({ message: "Product Not Found" });
+      res.status(404).send({ message: "Event Not Found" });
     }
   })
 );
@@ -154,6 +156,23 @@ productRouter.delete(
       res.send({ message: "Product Deleted", product: deleteProduct });
     } else {
       res.status(404).send({ message: "Product Not Found" });
+    }
+  })
+);
+
+
+productRouter.post(
+  '/updateunit',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const product = await Product.findById(req.body.product);
+    if (product) {
+      const quantity = req.body.qty;
+      product.avalabilityCounter = (product.avalabilityCounter-quantity);
+      const updatedProduct = await product.save();
+      res.send({ message: "Product Updated", product: updatedProduct });
+    }else{
+      res.status(404).send({ message: "Event Not Found" });
     }
   })
 );

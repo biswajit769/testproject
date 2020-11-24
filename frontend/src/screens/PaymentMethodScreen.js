@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { savePaymentMethod } from "../actions/cartActions";
+import { updateProductUnit } from "../actions/productActions";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { truncateText, formatPrice } from "../helper";
 import { createOrder } from "../actions/orderActions";
@@ -44,6 +45,7 @@ export default function PaymentMethodScreen(props) {
       .then(isValidOrder => {
         if(isValidOrder.status === 'Success'){
           cart.isPaid = true;
+          dispatch(updateProductUnit(cart.cartItems[0]));
           dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
           props.history.push("/orderplaced");
         }else{

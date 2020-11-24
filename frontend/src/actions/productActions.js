@@ -15,6 +15,10 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_SUCCESS,
+  PRODUCT_UNIT_UPDATE_REQUEST,
+  PRODUCT_UNIT_UPDATE_SUCCESS,
+  PRODUCT_UNIT_UPDATE_FAIL,
+  PRODUCT_UNIT_UPDATE_RESET
 } from "../constants/productConstants";
 
 export const listProducts_back = () => async (dispatch) => {
@@ -130,5 +134,23 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: PRODUCT_DELETE_FAIL, payload: message });
+  }
+};
+export const updateProductUnit = (product) => async (dispatch, getState) => {
+  dispatch({ type: PRODUCT_UNIT_UPDATE_REQUEST, payload: product });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.post(`/api/products/updateunit`, product, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: PRODUCT_UNIT_UPDATE_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: PRODUCT_UNIT_UPDATE_FAIL, error: message });
   }
 };

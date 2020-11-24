@@ -5,6 +5,9 @@ import { truncateText, formatPrice, formatDate } from "../helper";
 
 export default function ProductWithFilter(props) {
   const { product } = props;
+  const date1 = new Date().setHours(0,0,0,0);
+  const date2 = new Date(product.hdate).setHours(0,0,0,0);
+  const productprice = (product.avalabilityCounter && product.avalabilityCounter>0)?(date1 > date2)?'Sold Out':formatPrice(product.price):'Sold Out';
   return (
     <section className="custombar no-mb text-md-center bg-white">
       <div className="container">
@@ -19,7 +22,7 @@ export default function ProductWithFilter(props) {
             />
           </a>
           <span className="indiatalks-homepage-event-item-price listview">
-            <div className="indiatalks-homepage-htm-price-scope listview"><span><span>{formatPrice(product.price)}</span></span></div>
+            <div className="indiatalks-homepage-htm-price-scope listview"><span><span>{productprice}</span></span></div>
           </span>
           </div>
             

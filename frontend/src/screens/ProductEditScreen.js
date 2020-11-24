@@ -17,6 +17,7 @@ export default function ProductEditScreen(props) {
   const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState("");
+  const [avalabilityCounter, setAvalabilityCounter] = useState("");
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
   const [shortdescription, setShortDescription] = useState("");
@@ -66,6 +67,7 @@ export default function ProductEditScreen(props) {
       setImage(product.image);
       setCategory(product.category);
       setCountInStock(product.countInStock);
+      setAvalabilityCounter(product.avalabilityCounter);
       setBrand(product.brand);
       setDescription(product.description);
       setShortDescription(product.shortdescription);
@@ -152,6 +154,7 @@ export default function ProductEditScreen(props) {
         category,
         brand,
         countInStock,
+        avalabilityCounter,
         description,
         shortdescription,
         hdate,
@@ -311,12 +314,12 @@ export default function ProductEditScreen(props) {
                     </div>
                     <div className="col-md-6">
                       <div className="form-group">
-                        <label htmlFor="countInStock">Capacity</label>
+                        <label htmlFor="avalabilityCounter">Available Tickets</label>
                         <input
-                          id="countInStock"
+                          id="avalabilityCounter"
                           type="text"
-                          value={countInStock}
-                          onChange={(e) => setCountInStock(e.target.value)}
+                          value={avalabilityCounter}
+                          onChange={(e) => setAvalabilityCounter(e.target.value)}
                           className="form-control"
                         />
                       </div>

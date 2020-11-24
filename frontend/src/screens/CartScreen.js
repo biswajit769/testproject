@@ -100,6 +100,7 @@ export default function CartScreen(props) {
                                 </Link>
                               </td>
                               <td>
+                              {item.avalabilityCounter > 0 && (
                                 <select
                                   value={item.qty}
                                   onChange={(e) =>
@@ -111,7 +112,7 @@ export default function CartScreen(props) {
                                     )
                                   }
                                 >
-                                  {[...Array(item.countInStock).keys()].map(
+                                  {[...Array(item.avalabilityCounter).keys()].map(
                                     (x) => (
                                       <option key={x + 1} value={x + 1}>
                                         {x + 1}
@@ -119,6 +120,8 @@ export default function CartScreen(props) {
                                     )
                                   )}
                                 </select>
+                              )}
+                                
                               </td>
                               <td>{formatPrice(item.price)}</td>
                               <td>{formatPrice(0)}</td>
