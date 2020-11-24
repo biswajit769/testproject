@@ -99,8 +99,8 @@ export default function ProductFilter(props) {
                         </label>
                       </div>
                       {eventCategories &&
-                        eventCategories.map((category) => (
-                          <div className="checkbox">
+                        eventCategories.map((category,index) => (
+                          <div className="checkbox" key={index}>
                             <label>
                               <input type="radio" /> {category.title}
                             </label>
@@ -149,8 +149,8 @@ export default function ProductFilter(props) {
                         </label>
                       </div>
                       {parentCategories &&
-                        parentCategories.map((category) => (
-                          <div className="checkbox">
+                        parentCategories.map((category,index) => (
+                          <div className="checkbox" key={index}>
                             <label>
                               <input type="radio" /> {category.title}
                             </label>
