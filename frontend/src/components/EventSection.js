@@ -11,7 +11,6 @@ export default function EventSection(props) {
   const { loading, error, products } = productList;
   useEffect(() => {
     dispatch(listProducts());
-    console.log("function called");
   }, [dispatch]);
   return (
     <>

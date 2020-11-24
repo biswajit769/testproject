@@ -14,13 +14,11 @@ const API_HOST = 'https://subscrip.rkprd.com/api/v1';
 
 export default function PaymentMethodScreen(props) {
   const cart = useSelector((state) => state.cart);
-  console.log("cart detail=====12",cart);
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
   const { shippingAddress } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  console.log("cart detail123====>", userInfo);
   //const { cartItems, shipping, payment } = cart;
   if (!shippingAddress.address) {
     //props.history.push("/shipping");
@@ -38,10 +36,8 @@ export default function PaymentMethodScreen(props) {
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(0);
   cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.taxPrice;
-  console.log("cart detail=====123",cart);
   const responseHandler = (response) => {
     //props.history.push("/orderplaced");
-    console.log("If I am called",response);
     //success scenario.
     if(response.razorpay_payment_id && response.razorpay_order_id && response.razorpay_signature){
       verifyOrderStatus(userInfo.email,response,30)
@@ -65,7 +61,6 @@ export default function PaymentMethodScreen(props) {
 });
 
   const addScriptDynamic = (billamount,orderid,billdescription) => {
-    console.log("orderid====",orderid);
     var head = document.getElementsByTagName("head")[0];
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -110,7 +105,6 @@ export default function PaymentMethodScreen(props) {
 }
 
   function callFunctionFromScript(billamount,orderid,billdescription) {
-    console.log("bill",billamount,"orderItem",orderid,"billdescription",billdescription);
     let options = {
       key: SECRET_KEY,
       amount: billamount, // Example: 2000 paise = INR 20
@@ -147,7 +141,6 @@ export default function PaymentMethodScreen(props) {
     //dispatch(createOrder({ ...cart, orderItems: cart.cartItems })); // remove this line
     getOrderDetail(billamount,userInfo.email)
     .then((orderItem)=>{
-      console.log("orderItem",orderItem);
       addScriptDynamic(billamount,orderItem.id,billdescription);
     })
     //let propay = new Razorpay(options);

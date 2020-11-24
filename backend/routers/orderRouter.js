@@ -52,7 +52,6 @@ orderRouter.post(
         isPaid:req.body.isPaid,
         hdate:req.body.hdate
       });
-      console.log("my order====",order);
       const createdOrder = await order.save();
       res
         .status(201)

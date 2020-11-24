@@ -13,7 +13,6 @@ export default function Header(props) {
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
-  console.log("userinfo", userInfo);
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();

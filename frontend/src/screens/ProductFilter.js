@@ -18,7 +18,6 @@ import {
 
 export default function ProductFilter(props) {
   const sectiontype = props.match.params.sectiontype;
-  //console.log("section type====", sectiontype);
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const category = sectiontype;

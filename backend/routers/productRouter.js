@@ -73,7 +73,6 @@ productRouter.post(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
-    console.log("request has reached1235", req.user);
     const product = new Product({
       name: "sample event name " + Date.now(),
       image: "/images/p1.jpg",
@@ -116,7 +115,6 @@ productRouter.put(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
-    console.log("request has reached123", req.user);
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if (product) {

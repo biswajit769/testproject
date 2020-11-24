@@ -14,12 +14,10 @@ function filterData(prod,filterattr) {
   const newArray = prod.filter(function (el) {
     return el["pcategoryids"].includes(filterattr)
   });
-  //console.log("new array***",filterattr,newArray);
   return newArray;
 }
 
 export function arrangeproducts(products) {
-  //console.log("new prods", products);
   const upcomingProducts = filterData(products,"upcoming");
   const newProducts = filterData(products,"new");
   const topUserPicksProducts = filterData(products,"top user picks");

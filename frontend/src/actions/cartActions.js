@@ -8,7 +8,6 @@ import {
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
   const { data } = await Axios.get(`/api/products/${productId}`);
-  console.log("cart detail=====1",data);
   dispatch({
     type: CART_ADD_ITEM,
     payload: {

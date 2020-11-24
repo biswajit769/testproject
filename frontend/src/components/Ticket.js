@@ -5,7 +5,6 @@ import { truncateText, formatPrice, formatDate, getMonthInit } from "../helper";
 
 export default function Ticket(props) {
   const { order } = props;
-  console.log("order detail====",order);
   let dateStr = new Date(order.hdate);
 
   return (

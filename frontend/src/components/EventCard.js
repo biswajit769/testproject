@@ -2,7 +2,6 @@ import React from "react";
 
 export default function EventCard(props) {
   const { product } = props;
-  //console.log("image name===",{product.image);
   return (
     <li className="item">
       <div className="testimonial d-flex flex-wrap">

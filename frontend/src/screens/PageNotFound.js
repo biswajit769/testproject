@@ -13,7 +13,6 @@ import { truncateText, formatPrice } from "../helper";
 
 export default function PageNotFound(props) {
   const sectiontype = props.match.params.sectiontype;
-  console.log("section type====", sectiontype);
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;

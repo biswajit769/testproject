@@ -17,7 +17,6 @@ export default function OrderScreen(props) {
   const [sdkReady, setSdkReady] = useState(false);
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
-  console.log("my order===",orderDetails);
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 

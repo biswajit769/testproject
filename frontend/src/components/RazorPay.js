@@ -5,7 +5,6 @@ var options = {
   "description": "description",
   "image": "img/logo.png",// COMPANY LOGO
   "handler": function (response) {
-      console.log(response);
       // AFTER TRANSACTION IS COMPLETE YOU WILL GET THE RESPONSE HERE.
   },
   "prefill": {
