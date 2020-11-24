@@ -27,7 +27,6 @@ export default function SigninScreen(props) {
   const dispatch = useDispatch();
   
   const responseGoogle = (res) => {
-    console.log("google reponse", res);
     if(res.error){
       const googleerror = res.error;
     }

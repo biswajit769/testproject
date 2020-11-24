@@ -7,7 +7,7 @@ import {
 } from "../actions/productActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import {formatPrice} from "../helper"
+import { formatPrice, formatDate } from "../helper"
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
@@ -96,28 +96,30 @@ export default function ProductListScreen(props) {
                           <th>Id</th>
                           <th>Event Title</th>
                           <th>Price</th>
-                          <th>Category</th>
                           <th>PCategory</th>
                           <th>Host</th>
                           <th>Capacity</th>
-                          <th>Date</th>
-                          
-                          <th>Action</th>
+                          <th>Hosting Date</th>
+                          <th>Creation Date</th>
+                          <th colSpan="2">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         {products.map((product) => (
                           <tr key={product._id}>
-                            <td>{product._id}</td>
+                            <td>#{product._id}</td>
                             <td>{product.name}</td>
                             <td>{formatPrice(product.price)}</td>
-                            <td>{product.category}</td>
-                            <td>New</td>
+                            <td>
+                              <ul>
+                                {product.pcategoryids && product.pcategoryids.map(element => <li className="badge badge-info">{element}</li>)}
+                              </ul>
+                            </td>
                             <td>{product.hostname}</td>
                             <td>{product.countInStock}</td>
-                            <td>11/12/2020</td>
-                            
-                            <td>
+                            <td>{formatDate(product.hdate)}</td>
+                            <td>{formatDate(product.createdAt)}</td>
+                            <td colSpan="2">
                               <button
                                 type="button"
                                 className="btn btn-sm btn-warning btn-sm"

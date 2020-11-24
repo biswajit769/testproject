@@ -53,7 +53,7 @@ export default function OrderHistoryHostScreen(props) {
                       <thead>
                         <tr>
                           <th>Order</th>
-                          <th>Date</th>
+                          <th>Booked On</th>
                           <th>Total</th>
                           <th>Status</th>
                           <th>Action</th>
@@ -69,7 +69,7 @@ export default function OrderHistoryHostScreen(props) {
                               {order.isPaid ? (
                                 <>
                                   <span className="badge badge-success">
-                                    {formatDate(order.paidAt)}
+                                    Paid
                                   </span>
                                 </>
                               ) : (

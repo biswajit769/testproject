@@ -85,8 +85,8 @@ export default function CartScreen(props) {
                           </tr>
                         </thead>
                         <tbody>
-                          {cartItems.map((item) => (
-                            <tr>
+                          {cartItems.map((item,index) => (
+                            <tr key={index}>
                               <td>
                                 <img
                                   src={item.image}

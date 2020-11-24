@@ -41,7 +41,6 @@ userRouter.post(
         return;
       }
     } else if (Object.keys(req.body.socialresponse).length !== 0) {
-      console.log("request body=====",req.body);
       const user = new User({
         name: req.body.socialresponse.name,
         email: req.body.socialresponse.email,
@@ -59,7 +58,6 @@ userRouter.post(
         
       }
     });
-      console.log("created user=====",createdUser);
       res.send({
         _id: createdUser._id,
         name: createdUser.name,
@@ -80,7 +78,6 @@ userRouter.post(
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.socialmediaresponse.email });
     if(user){
-console.log("user exists",user,"and request object====",req.body.socialmediaresponse);
     }else{
       const user = new User({
         name: req.body.socialmediaresponse.name,

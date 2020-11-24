@@ -24,7 +24,6 @@ export default function Contactus(props) {
   const dispatch = useDispatch();
 
   const responseGoogle = (res) => {
-    console.log("google reponse", res);
     if (res.error) {
       const googleerror = res.error;
     }
@@ -52,7 +51,6 @@ export default function Contactus(props) {
   };
 
   const componentClicked = (res) => {
-    console.log("facebook clicked", res);
   };
 
   const submitHandler = (e) => {

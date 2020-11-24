@@ -196,8 +196,8 @@ export default function ProductScreen(props) {
                       <h6 className="h6 panel-title">Category & Tag</h6>
                     </div>
                     <div className="panel-body">
-                      {product.ecategoryids.map((eventDetail) => (
-                        <span className="badge badge-secondary">
+                      {product.ecategoryids.map((eventDetail,index) => (
+                        <span className="badge badge-secondary" key={index}>
                           {eventDetail}
                         </span>
                       ))}

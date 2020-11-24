@@ -101,7 +101,7 @@ export default function OrderScreen(props) {
       <div id="customer-order" className="col-lg-9">
   <p className="lead">Order #{order._id} was placed on <strong>{order.createdAt.substring(0, 10)}</strong> and is currently <strong>{order.isPaid ? (
                               <>
-                                <span>Ticket Has Mailed</span>
+                                <span>Ticket Has Booked Successfully</span>
                               </>
                             ) : (
                               <span>Payment Pending</span>

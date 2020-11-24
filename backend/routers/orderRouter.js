@@ -48,7 +48,9 @@ orderRouter.post(
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
         user: req.user._id,
-        hostId:req.body.hostId
+        hostId:req.body.hostId,
+        isPaid:req.body.isPaid,
+        hdate:req.body.hdate
       });
       console.log("my order====",order);
       const createdOrder = await order.save();

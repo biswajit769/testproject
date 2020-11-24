@@ -6,7 +6,7 @@ import { truncateText, formatPrice, formatDate, getMonthInit } from "../helper";
 export default function Ticket(props) {
   const { order } = props;
   console.log("order detail====",order);
-  let dateStr = new Date(order.createdAt);
+  let dateStr = new Date(order.hdate);
 
   return (
     <section className="custombar no-mb text-md-center bg-white">
@@ -15,7 +15,7 @@ export default function Ticket(props) {
           <div className="col-md-2 text-center ticketleft">
             <div className="text listitems">
               <h5 className="h5 producth5">
-  <a href="">{dateStr.getDate()}</a>
+                <a href="">{dateStr.getDate()}</a>
               </h5>
               <p className="author-category">{getMonthInit(dateStr.getMonth())}</p>
             </div>
@@ -39,7 +39,7 @@ export default function Ticket(props) {
               <p className="intro">
               <i className="fa fa-clock-o" aria-hidden="true"></i>
                     {" "}<span className="event-date">
-                    {formatDate(order.createdAt)}
+                    {formatDate(order.hdate)}
                     </span>
               </p>
               <p className="author-category"><i class="fa fa-ticket" aria-hidden="true"></i> {order.orderItems[0].name} Ticket</p>

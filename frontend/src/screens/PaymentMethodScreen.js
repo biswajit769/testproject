@@ -8,7 +8,7 @@ import { createOrder } from "../actions/orderActions";
 
 const RECEIPT_ID = 'rcptid_11';
 const CURRENCY = 'INR';
-const SECRET_KEY = 'rzp_test_xLfLvCOupjVqWs'
+const SECRET_KEY = 'rzp_test_eFGdVzlMuucOUS'
 const MERCHANT_NAME = 'IndiaTalks Pvt Ltd.'
 const API_HOST = 'https://subscrip.rkprd.com/api/v1';
 
@@ -30,6 +30,7 @@ export default function PaymentMethodScreen(props) {
   const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
   if(cart && cart.cartItems.length > 0){
     cart.hostId = cart.cartItems[0].hostuserid;
+    cart.hdate = cart.cartItems[0].hdate;
   }
   cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
@@ -46,6 +47,7 @@ export default function PaymentMethodScreen(props) {
       verifyOrderStatus(userInfo.email,response,30)
       .then(isValidOrder => {
         if(isValidOrder.status === 'Success'){
+          cart.isPaid = true;
           dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
           props.history.push("/orderplaced");
         }else{
@@ -111,15 +113,15 @@ export default function PaymentMethodScreen(props) {
     console.log("bill",billamount,"orderItem",orderid,"billdescription",billdescription);
     let options = {
       key: SECRET_KEY,
-      amount: billamount*100, // Example: 2000 paise = INR 20
+      amount: billamount, // Example: 2000 paise = INR 20
       name: MERCHANT_NAME,
       description: billdescription,
       order_id: orderid,
       image: "img/logo.png", // COMPANY LOGO
       handler: responseHandler,
       prefill: {
-        name: "ABC", // pass customer name
-        email: "info@rkprd.com", // customer email
+        name: userInfo.name, // pass customer name
+        email: userInfo.email, // customer email
         contact: "+919123456780", //customer phone no.
       },
       notes: {
@@ -134,12 +136,15 @@ export default function PaymentMethodScreen(props) {
     propay.on("payment.failed", responseHandler);
   }
   //cart.totalPrice = cart.itemsPrice;
-  const submitHandler2 = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
     //addScriptDynamic();
     const billamount = cart.totalPrice;
-    const billdescription = 'test description';
-    dispatch(createOrder({ ...cart, orderItems: cart.cartItems })); // remove this line
+    let billdescription = "Purchase the event ticket";
+    if(cart.cartItems.length>0){
+      billdescription = cart.cartItems[0].name;
+    }
+    //dispatch(createOrder({ ...cart, orderItems: cart.cartItems })); // remove this line
     getOrderDetail(billamount,userInfo.email)
     .then((orderItem)=>{
       console.log("orderItem",orderItem);
@@ -153,7 +158,7 @@ export default function PaymentMethodScreen(props) {
     //dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   };
 
-  const submitHandler = (e) => {
+  const submitHandler1 = (e) => {
     dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   }
   const listingredirect = (e) => {
@@ -222,21 +227,7 @@ export default function PaymentMethodScreen(props) {
                         </div>
                       </div>
                       <div className="col-sm-6">
-                        <div className="box payment-method">
-                          <h4>Paypal</h4>
-                          <p>We like it all.</p>
-                          <div className="box-footer text-center">
-                            <input
-                              type="radio"
-                              id="paypal"
-                              value="PayPal"
-                              name="paymentMethod"
-                              required
-                              checked
-                              onChange={(e) => setPaymentMethod(e.target.value)}
-                            ></input>
-                          </div>
-                        </div>
+                        &nbsp;
                       </div>
                     </div>
                   </div>

@@ -8,7 +8,6 @@ import { truncateText, formatPrice, formatDate } from "../helper";
 
 export default function OrderListScreen(props) {
   const orderList = useSelector((state) => state.orderList);
-  console.log("orderlist====", orderList);
   const { loading, error, orders } = orderList;
   const orderDelete = useSelector((state) => state.orderDelete);
   const {
@@ -82,7 +81,7 @@ export default function OrderListScreen(props) {
                               {order.isPaid ? (
                                 <>
                                   <span className="badge badge-success">
-                                    {order.paidAt.substring(0, 10)}
+                                    Paid
                                   </span>
                                 </>
                               ) : (
