@@ -20,17 +20,53 @@ export default function ProductFilter(props) {
   const sectiontype = props.match.params.sectiontype;
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const category = sectiontype;
+  //const category = sectiontype;
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchParentCategory, setSearchParentCategory] = useState("");
+  const [searchTaggedCategory, setSearchTaggedCategory] = useState("");
+  const [searchPrice, setSearchPrice] = useState("");
+  const [searchByDate, setSearchByDate] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const { loading, error, products } = productList;
+  let newerror = '';
+  if(products && products.length===0){
+    newerror = 'No Event Found';
+  }
   useEffect(() => {
-    dispatch(listProducts(category));
+    if(!searchParentCategory){
+      setSearchParentCategory(sectiontype);
+    }
+    dispatch(listProducts(searchTaggedCategory, "", "", searchParentCategory,"","",searchPrice));
 
     return () => {
       //
     };
-  }, [category]);
+  }, [searchTaggedCategory,searchParentCategory,searchPrice,searchByDate]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(listProducts('',searchKeyword));
+  };
+
+  const setEventCategory = (e) => {
+    const selectedVal = (e.target.value === 'all')?'':btoa(e.target.value);
+    setSearchTaggedCategory(selectedVal);
+  }
+  
+  const setEventParentCategory = (e) =>{
+    const selectedVal = (e.target.value === 'all')?'':e.target.value;
+    setSearchParentCategory(selectedVal);
+  }
+
+  const setEventDate = (e) =>{
+    const selectedVal = (e.target.value === 'all')?'':e.target.value;
+    setSearchByDate(selectedVal);
+  }
+
+  const setEventPrice = (e) => {
+    const selectedVal = (e.target.value === 'all')?'':e.target.value;
+    setSearchPrice(selectedVal)
+  }
   return (
     <>
       <div id="heading-breadcrumbs">
@@ -64,22 +100,22 @@ export default function ProductFilter(props) {
                     <div className="form-group">
                       <div className="checkbox">
                         <label>
-                          <input type="radio" /> Any date
+                          <input type="radio" name="eventdate" value="all" onChange={setEventDate}/> Any date
                         </label>
                       </div>
                       <div className="checkbox">
                         <label>
-                          <input type="radio" /> Today
+                          <input type="radio" name="eventdate" value="today" onChange={setEventDate}/> Today
                         </label>
                       </div>
                       <div className="checkbox">
                         <label>
-                          <input type="radio" /> Tomorrow
+                          <input type="radio" name="eventdate" value="tomorrow" onChange={setEventDate}/> Tomorrow
                         </label>
                       </div>
                       <div className="checkbox">
                         <label>
-                          <input type="radio" /> This weekend
+                          <input type="radio" name="eventdate" value="weekend" onChange={setEventDate}/> This weekend
                         </label>
                       </div>
                     </div>
@@ -95,14 +131,14 @@ export default function ProductFilter(props) {
                     <div className="form-group">
                       <div className="checkbox">
                         <label>
-                          <input type="radio" /> All
+                          <input type="radio" name="eventcategories" value="all" onChange={setEventCategory}/> All
                         </label>
                       </div>
                       {eventCategories &&
-                        eventCategories.map((category,index) => (
+                        eventCategories.map((category, index) => (
                           <div className="checkbox" key={index}>
                             <label>
-                              <input type="radio" /> {category.title}
+                              <input type="radio" name="eventcategories" value={category.title} onChange={setEventCategory}/> {category.title}
                             </label>
                           </div>
                         ))}
@@ -119,17 +155,17 @@ export default function ProductFilter(props) {
                     <div className="form-group">
                       <div className="checkbox">
                         <label>
-                          <input type="radio" /> All tickets (free and paid)
+                          <input type="radio" name="ticketprice" value="all" onChange={setEventPrice}/> All tickets (free and paid)
                         </label>
                       </div>
                       <div className="checkbox">
                         <label>
-                          <input type="radio" /> Free
+                          <input type="radio" name="ticketprice" value="free" onChange={setEventPrice}/> Free
                         </label>
                       </div>
                       <div className="checkbox">
                         <label>
-                          <input type="radio" /> Paid
+                          <input type="radio" name="ticketprice" value="paid" onChange={setEventPrice}/> Paid
                         </label>
                       </div>
                     </div>
@@ -145,14 +181,14 @@ export default function ProductFilter(props) {
                     <div className="form-group">
                       <div className="checkbox">
                         <label>
-                          <input type="radio" /> All
+                          <input type="radio" value="all" name="parentcategories" onChange={setEventParentCategory}/> All
                         </label>
                       </div>
                       {parentCategories &&
-                        parentCategories.map((category,index) => (
+                        parentCategories.map((category, index) => (
                           <div className="checkbox" key={index}>
                             <label>
-                              <input type="radio" /> {category.title}
+                              <input type="radio" value={category.title} name="parentcategories" onChange={setEventParentCategory}/> {category.title}
                             </label>
                           </div>
                         ))}
@@ -162,18 +198,35 @@ export default function ProductFilter(props) {
               </div>
             </div>
             <div className="col-md-9">
-                {loading ? (
-                  <LoadingBox></LoadingBox>
-                ) : error ? (
-                  <MessageBox variant="danger">{error}</MessageBox>
-                ) : (
-                  products.map((product) => (
+              {loading ? (
+                <LoadingBox></LoadingBox>
+              ) : error ? (
+                <MessageBox variant="danger">{error}</MessageBox>
+              ) : (
+                <>
+                  {newerror && (
+                    <MessageBox variant="danger">{newerror}</MessageBox>
+                  )}
+                  <div className="form-group has-search">
+                    <form onSubmit={submitHandler}>
+                    <span className="fa fa-search form-control-feedback" />
+                    <input
+                      type="text"
+                      className="form-control shadow bg-white rounded searchbar"
+                      placeholder="Search"
+                      value={searchKeyword}
+                      onChange={(e) => setSearchKeyword(e.target.value)}
+                    />
+                    </form>
+                  </div>
+                  {products.map((product) => (
                     <ProductWithFilter
                       key={product._id}
                       product={product}
                     ></ProductWithFilter>
-                  ))
-                )}
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>

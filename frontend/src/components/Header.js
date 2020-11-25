@@ -222,16 +222,10 @@ export default function Header(props) {
               {userInfo && userInfo.isAdmin && (
                 <ul className="nav navbar-nav ml-auto">
                   <li className="nav-item dropdown menu-large">
-                    <Link to="/dashboard">Dashboard</Link>
-                  </li>
-                  <li className="nav-item dropdown menu-large">
                     <Link to="/productlist">Events</Link>
                   </li>
                   <li className="nav-item dropdown menu-large">
                     <Link to="/orderlist">Orders</Link>
-                  </li>
-                  <li className="nav-item dropdown menu-large">
-                    <Link to="/userlist">Users</Link>
                   </li>
                   <li className="nav-item dropdown">
                     <a

@@ -15,7 +15,6 @@ export default function Product(props) {
       : "Sold Out";
   const sellingSoon = product.avalabilityCounter < 3 ? true : false;
   const datecheck = date1 > date2;
-  console.log("date check====",datecheck);
   return (
     <div>
       <div className="product customize">

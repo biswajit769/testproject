@@ -275,3 +275,27 @@ h5.producth5{
     padding:30px;
 }
 
+.has-search .form-control {
+    padding-left: 3rem!important;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 3.375rem;
+    line-height: 3.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.has-search .form-control.searchbar{
+    border:0;
+    padding: 28px;
+}
+.form-group.has-search{
+    margin-bottom: 38px;
+}
+

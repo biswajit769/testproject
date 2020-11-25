@@ -4,6 +4,7 @@ import data from "../data.js";
 import Product from "../models/productModel.js";
 import User from '../models/userModel.js';
 import { isAdmin, isAuth } from "../utils.js";
+import atob from "atob";
 
 const productRouter = express.Router();
 
@@ -12,7 +13,7 @@ productRouter.get(
   expressAsyncHandler(async (req, res) => {
     //const products = await Product.find({});
     //res.send(products);
-    const category = req.query.category ? { pcategoryids: [req.query.category] } : {};
+    //const category = req.query.category ? { pcategoryids: [req.query.category] } : {};
     let selfhost = {}
     if(req.query.user){
       const user = await User.findOne({ _id: req.query.user });
@@ -22,6 +23,24 @@ productRouter.get(
     const parentcategory = req.query.parentcategory
       ? { pcategoryids: { $in: [req.query.parentcategory] } }
       : {};
+    let dateRange = {}
+    if(req.query.searchDate){
+      if(req.query.searchDate==='today'){
+        dateRange = {hdate: {$eq: new Date().toISOString()}}
+      }
+    }
+    //const price = req.query.searchPrice?{}
+    let priceQuery = {};
+    if(req.query.searchPrice){
+      if(req.query.searchPrice=='free'){
+        priceQuery = {price:{$in:["",'0']}}
+      }else{
+        priceQuery = {price:{$nin:["",'0']}}
+      }
+    }
+    const category = req.query.category
+    ? { ecategoryids: { $in: [atob(req.query.category)] } }
+    : {};
     const searchKeyword = req.query.searchKeyword
       ? {
           name: {
@@ -36,13 +55,20 @@ productRouter.get(
         : { price: -1 }
       : { _id: -1 };
 
-    const products = await Product.find({
+    /*const products = await Product.find({
       ...category,
       ...parentcategory,
       ...searchKeyword,
       ...selfhost
-    }).sort(sortOrder);
-
+    }).sort(sortOrder);*/
+    const products = await Product.find({
+      ...category,
+      ...parentcategory,
+      ...searchKeyword,
+      ...selfhost,
+      ...dateRange,
+      ...priceQuery
+    });
     res.send(products);
   })
 );
